@@ -8,7 +8,6 @@
 
 - [Introduction](#intro)
 - [Installation](#install)
-- [Uninstallation](#uninstall)
 - [Requirements](#requirements)
 - [Genetic Algorithm](#algorithm)
   - [Population](#population)
@@ -24,17 +23,13 @@ This repository contains the Python implementation of a genetic algorithm
 developed by the BiDA Lab team. This algorithm was created to choose the best
 subset of features from a original dataset.
 
-[![Feature-Selector Genetic Algorithm](./media/image.jpg)]
+![Feature-Selector Genetic Algorithm](./media/image.jpg)
 
 ## <a name="install">Installation</a>
 
 Simply clone this repository and run `pip setup.py install`.
 
-## <a name="uninstall">Uninstallation</a>
-
-```bash
-pip uninstall genetic_selector
-```
+To uninstall run `pip uninstall genetic_selector`.
 
 ## <a name="requirements">Requirements</a>
 
