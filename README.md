@@ -16,6 +16,7 @@
   - [Crossover](#crossover)
   - [Mutation](#mutation)
 - [Example of use](#example)
+- [References](#references)
 
 ## <a name="intro">Introduction</a>
 
@@ -126,10 +127,10 @@ if __name__ == '__main__':
     print(f'Chromosomes history: {chromosomes_history}')
 ```
 
-## Bibliography
+## <a name="references">References</a>
 
-- G. Chandrashekar, F. Sahin, A survey on feature selection methods, Comput. Electr. Eng. 40 (2014) 16–28. [https://doi.org/https://doi.org/10.1016/j.compeleceng.2013.11.024](https://doi.org/https://doi.org/10.1016/j.compeleceng.2013.11.024).
+- R. Tolosana, J.C. Ruiz-Garcia, R. Vera-Rodriguez, J. Herreros-Rodriguez, S. Romero-Tapiador, A. Morales and J. Fierrez, **"Child-Computer Interaction: Recent Works, New Dataset, and Age Detection"**, *IEEE Transactions on Emerging Topics in Computing*, doi: [10.1109/TETC.2022.3150836](https://www.doi.org/10.1109/TETC.2022.3150836), 2022.
+
+- G. Chandrashekar, F. Sahin, A survey on feature selection methods, Comput. Electr. Eng. 40 (2014) 16–28. doi: [10.1016/j.compeleceng.2013.11.024](https://doi.org/10.1016/j.compeleceng.2013.11.024).
 
 - W.F. Punch, E.D. Goodman, M. Pei, L. Chia-Shun, P.D. Hovland, R.J. Enbody, Further Research on Feature Selection and Classification Using Genetic Algorithms, in: Proc. 5th Int. Conf. Genet. Algorithms, Morgan Kaufmann Publishers Inc., San Francisco, CA, USA, 1993: pp. 557–564.
-
-- R. Tolosana, J.C. Ruiz-Garcia, R. Vera-Rodriguez, J. Herreros-Rodriguez, S. Romero-Tapiador, A. Morales and J. Fierrez, "[Child-Computer Interaction: Recent Works, New Dataset, and Age Detection](https://arxiv.org/abs/2102.01405)", *arXiv preprint arXiv:2102.01405*, 2021.
