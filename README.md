@@ -11,10 +11,10 @@
 - [Requirements](#requirements)
 - [Genetic Algorithm](#algorithm)
   - [Population](#population)
-  - [Evaluation](#evaluation)
   - [Selection](#selection)
   - [Crossover](#crossover)
   - [Mutation](#mutation)
+  - [Evaluation](#evaluation)
 - [Example of use](#example)
 - [References](#references)
 
@@ -40,21 +40,14 @@ To uninstall run `pip uninstall genetic_selector`.
 
 ## <a name="algorithm">Genetic Algorithm</a>
 
-It is a metaheuristic algorithm based on Charles Darwin's theory of evolution.
-In particular, it is mainly inspired on the natural selection process of
-evolution, where over generations and through the use of operators such as
-mutation, crossover and selection, a positive evolution towards better
-solutions occurs.
+It is a metaheuristic algorithm based on Charles Darwin's theory of evolution. In particular, it is mainly inspired on the natural selection process of evolution, where over generations and through the use of operators such as mutation, crossover and selection, a positive evolution towards better solutions occurs.
 
-In this case, the algorithm is designed to find the subset of features that
+Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that
 works best for a given problem.
 
 ### <a name="population">Population</a>
 
-Each of the chromosomes belonging to the population is formed by a binary Numpy
-array, where each position refers to each of the features of the data set.
-The value one will indicate that the characteristic will be used and zero that
-it will not.
+Each of the chromosomes belonging to the population is formed by a binary Numpy array, where each position refers to each of the features of the data set. The value one will indicate that the characteristic will be used and zero that it will not.
 
 ### <a name="selection">Selection</a>
 
