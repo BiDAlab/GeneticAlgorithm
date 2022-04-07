@@ -123,7 +123,7 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 |<a name="initial_best_chromosome_par">`initial_best_chromosome`</a>|np.ndarray|None|A 1-dimensional binary matrix of size equal to the number of features (M). Defines the best chromosome (subset of features) in the initial population.
 |<a name="n_jobs_par">`n_jobs`</a>|int|1|Number of cores to run in parallel. By default a single-core is used.<br/>`n_jobs = -1` means the maximum number of cores on the machine. If the inserted `n_jobs` is greater than the maximum number of cores on the machine, then the value is set to the maximum number of cores on the machine. 
 |<a name="random_state_par">`random_state`</a>|int or RandomState instance|None|Controls the randomness of the life cycle in each population. Enter an integer for reproducible output.
-|<a name="verbose_par">`verbose`</a>|int|0|Control the output verbosity level.
+|<a name="verbose_par">`verbose`</a>|int|0|Control the output verbosity level. It must be an integer value between 0 and 2.
 
 <br/>
 
