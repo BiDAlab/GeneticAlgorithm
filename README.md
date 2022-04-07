@@ -11,7 +11,6 @@ This repository contains the Python implementation of a genetic algorithm develo
 - [Installation](#install)
 - [Requirements](#requirements)
 - [How Does It Works?](#howdoesitworks)
-  - [Population](#population)
   - [Selection](#selection)
   - [Crossover](#crossover)
   - [Mutation](#mutation)
@@ -36,17 +35,17 @@ To uninstall run `pip uninstall genetic_selector`.
 
 The genetic algorithm is a metaheuristic algorithm based on Charles Darwin's theory of evolution. In particular, it is mainly inspired on the natural selection process of evolution, where over generations and through the use of operators such as mutation, crossover and selection, a positive evolution towards better solutions occurs. Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that works best for a given problem.
 
-</br>
+<br/>
 
 ![Feature-Selector Genetic Algorithm](./media/image.jpg)
 
-</br>
+<br/>
 
-From the original dataset, with *N* features and *M* samples, an initial population of size `n_population` chromosomes is created. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
+From the original dataset, with *N* features and *M* samples, an initial population of size `n_population` chromosomes is created. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. A chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
 
-### <a name="population">Population</a>
+Once the initial population is defined, it is <a name="evaluation">evaluated</a> to find the best chromosome (solution) in the population. Once the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for `n_gen` generations or until the solution converges.
 
-Each of the chromosomes belonging to the population is formed by a binary Numpy array, where each position refers to each of the features of the data set. The value one will indicate that the characteristic will be used and zero that it will not.
+The first step is to create a new population through the <a name="selection">selection process</a>.
 
 ### <a name="selection">Selection</a>
 
@@ -64,13 +63,23 @@ n_crosses = crossover_rate * (population_size / 2)
 
 For the mutation process, we again use mathematical hope. That is, if we have a mutation probability at the gene level of 0.2 and a total number of genes of 6000, then the number of mutations that will be made on average will be 1200. Mutations will be made by generating two random numbers per mutation, one to choose the chromosome and one to choose the gene to change.
 
-### <a name="evaluation">Evaluation</a>
-
 To "see how good" each of the population's chromosomes are, the average obtained from the use of a Scikit-learn classification model will be used. In addition, this model will be trained using cross-validation for validation.
 
 ```bash
 n_mutations = mutation_rate * population_size * genes_per_chromosome
 ```
+
+### <a name="evaluation">Evaluation</a>
+
+In this process, the population of chromosomes (possible solutions) is evaluated through the defined `scoring` to find the best solution. To be able to evaluate each chromosome, the following is needed:
+
+- A supervised learning `estimator` with a *fit* method from Scikit-learn. The estimator can be a classifier or a regressor.
+- A defined scoring to quantitatively measure the quality of a solution (chromosome).
+
+|Parameter|Value|Default|Definition|
+|-------------|:-------------:|:-----:|:-----:|
+|estimator|object|None|A supervised learning estimator with a *fit* method from Scikit-learn.
+|scoring|str, callable, or None|None|If None (default), uses 'accuracy' for sklearn classifiers and 'r2' for sklearn regressors.<br/>If str, uses a sklearn scoring metric string identifier, for example {accuracy, f1, precision, recall, roc_auc} for classifiers, {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error', 'median_absolute_error', 'r2'} for regressors.
 
 ## <a name="options">Options</a>
 
