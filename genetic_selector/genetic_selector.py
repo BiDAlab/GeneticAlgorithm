@@ -32,72 +32,49 @@ class GeneticSelector:
         {accuracy, f1, precision, recall, roc_auc} for classifiers,
         {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error',
         'median_absolute_error', 'r2'} for regressors.
-    cv : int, cross-validation generator or an iterable, default=None
+    cv : int, cross-validation generator or iterable, default=None
         Determines the cross-validation splitting strategy.
-        Possible inputs for cv are:
+        Possibilities are:
 
         - None, to use the default 5-fold cross validation,
         - int, to specify the number of folds in a `(Stratified)KFold`,
         - :term:`CV splitter`,
         - An iterable yielding (train, test) splits as arrays of indices.
     n_gen : int, default: 50
-        Determines the maximum number of generations to be carried
-        out.
+        Determines the maximum number of generations to be carry out.
     n_population : int, default: 100
-        It determines the number and size of the population. That
-        is, the number of chromosomes.
-    crossover_rate : double, default: 0.7
-        It defines the crossing probability. It must be a value
-        of 0.0 < crossover_rate <= 1.0.
+        Determines the size of the population (number of chromosomes).
+    crossover_rate : float, default: 0.7
+        Defines the crossing probability. It must be a value between 0.0 and
+        1.0.
     mutation_rate : double, default: 0.1
-        It defines the mutation probability. It must be a value
-        of 0.0 < crossover_rate <= 1.0.
+        Defines the mutation probability. It must be a value between 0.0 and
+        1.0.
     tournament_k : int, default: 2
-        It defines the size of the tournament carried out in the
-        selection process. Number of chromosomes to be fought per
-        tournament.
+        Defines the size of the tournament carried out in the selection
+        process. Number of chromosomes facing each other in each tournament.
     return_train_score : bool, default=False
-        Whether to include train scores.
-        Computing training scores is used to get insights on how different
-        parameter settings impact the overfitting/underfitting trade-off.
-        However computing the scores on the training set can be computationally
-        expensive and is not strictly required to select the parameters that
-        yield the best generalization performance.
+        Whether or not to save the scores obtained during the training process.
+        The calculation of training scores is used to obtain information on how
+        different parameter settings affect the overfitting/underfitting
+        trade-off. However, calculating the scores in the training set can be
+        computationally expensive and is not strictly necessary to select the
+        parameters that produce the best generalisation performance.
     initial_best_chromosome: np.ndarray, default=None
-        A 1 dimensional binary array with the size of number of features
-        defining the initial chromosome when the genetic algorithm begin.
+        A 1-dimensional binary matrix of size equal to the number of features
+        (M). Defines the best chromosome (subset of features) in the initial
+        population.
     n_jobs : int, default 1
         Number of cores to run in parallel.
-        Defaults to 1 core. If `n_jobs=-1`, then number of jobs is set
-        to number of cores. If n_jobs is bigger than number of cores,
-        then number of jobs is set to number of cores.
+        By default a single-core is used. `n_jobs`=-1 means the maximum number
+        of cores on the machine. If the inserted `n_jobs` is greater than the
+        maximum number of cores on the machine, then the value is set to the
+        maximum number of cores on the machine.
     random_state : int or RandomState instance, default=None
-        Controls the randomness of life cycle of each population.
-        Pass an int for reproducible output across multiple function calls.
+        Controls the randomness of the life cycle in each population. Enter an
+        integer for reproducible output.
     verbose : int, default=0
-        Controls verbosity of output.
-    Examples
-    --------
-    An example of use.
-
-    >>> import pandas as pd
-    >>> from sklearn.ensemble import RandomForestClassifier
-    >>> from sklearn import datasets
-    >>> from sklearn.model_selection import train_test_split
-    >>> from genetic_selector import GeneticSelector
-    >>> rf_clf = RandomForestClassifier(n_estimators=100)
-    >>> dataset = datasets.load_wine()
-    >>> X = pd.DataFrame(data=dataset['data'])
-    >>> y = pd.Series(data=dataset['target'])
-    >>> train_X, test_X, train_y, test_y = train_test_split(X, y,
-    >>>     test_size=0.25)
-    >>> genetic_selector = GeneticSelector(rf_clf, score='accuracy', cv=5,
-    >>>     n_gen=50, n_population=150, crossover_rate=0.8, mutation_rate=0.15,
-    >>>     tournament_k=2, n_jobs=-1, verbose=0)
-    >>> genetic_selector.fit(train_X, train_y)
-    >>> best_chromosome = genetic_selector._support()
-    >>> print(f'Best chromosome: {best_chromosome[0]}')
-    >>> print(f'Average score: {best_chromosome[1]}')
+        Control the output verbosity level.
     """
 
     def __init__(self, estimator: object, scoring: str = None, cv: int = 5,
