@@ -74,9 +74,13 @@ From the original dataset, with *N* features and *M* samples, **an initial popul
 
 The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
 
+<br/>
+
 ### <a name="selection">Selection (To be updated)</a>
 
 To carry out the selection process, the entire population is evaluated using the model's average, the best chromosome is selected and the remaining chromosomes are selected per *tournament_k* size tournament.
+
+------
 
 ### <a name="crossover">Crossover (To be updated)</a>
 
@@ -85,6 +89,8 @@ To make the crossing, mathematical hope is used. That is, if the probability of 
 ```bash
 n_crosses = crossover_rate * (population_size / 2)
 ```
+
+------
 
 ### <a name="mutation">Mutation (To be updated)</a>
 
@@ -96,12 +102,16 @@ To "see how good" each of the population's chromosomes are, the average obtained
 n_mutations = mutation_rate * population_size * genes_per_chromosome
 ```
 
+------
+
 ### <a name="evaluation">Evaluation</a>
 
 In this process, the population of chromosomes (possible solutions) is evaluated through the defined [`scoring`](#scoring_par) to find the best solution. To be able to evaluate each chromosome, the following is needed:
 
 - A supervised learning [`estimator`](#estimator_par) with a *fit* method from Scikit-learn. The estimator can be a classifier or a regressor.
 - A defined [`scoring`](#scoring_par) to quantitatively measure the quality of a solution (chromosome).
+
+------
 
 <br/>
 
