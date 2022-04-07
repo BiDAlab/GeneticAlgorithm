@@ -45,7 +45,7 @@ From the original dataset, with *N* features and *M* samples, an initial populat
 
 Once the initial population is defined, it is [evaluated](#evaluation) to find the best chromosome (solution) in the population. Once the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for `n_gen` generations or until the solution converges.
 
-The first step is to create a new population through the [selection process](#selection).
+During the generational process there are 4 steps. The first step is to create a new population through the [selection process](#selection). 
 
 ### <a name="selection">Selection</a>
 
