@@ -4,12 +4,13 @@
 
 # Feature-Selector Genetic Algorithm
 
+This repository contains the Python implementation of a genetic algorithm developed by the BiDA Lab team. This algorithm was created to choose the best subset of features from a original dataset.
+
 ## Table of content
 
-- [Introduction](#intro)
 - [Installation](#install)
 - [Requirements](#requirements)
-- [Genetic Algorithm](#algorithm)
+- [How Does It Works?](#howdoesitworks)
   - [Population](#population)
   - [Selection](#selection)
   - [Crossover](#crossover)
@@ -18,14 +19,6 @@
 - [Options](#options)
 - [Example of use](#example)
 - [References](#references)
-
-## <a name="intro">Introduction</a>
-
-This repository contains the Python implementation of a genetic algorithm
-developed by the BiDA Lab team. This algorithm was created to choose the best
-subset of features from a original dataset.
-
-![Feature-Selector Genetic Algorithm](./media/image.jpg)
 
 ## <a name="install">Installation</a>
 
@@ -39,12 +32,17 @@ To uninstall run `pip uninstall genetic_selector`.
 - numpy >= 1.18
 - pandas >= 1.0.1
 
-## <a name="algorithm">Genetic Algorithm</a>
+### <a name="howdoesitworks">How Does It Works?</a>
 
-It is a metaheuristic algorithm based on Charles Darwin's theory of evolution. In particular, it is mainly inspired on the natural selection process of evolution, where over generations and through the use of operators such as mutation, crossover and selection, a positive evolution towards better solutions occurs.
+The genetic algorithm is a metaheuristic algorithm based on Charles Darwin's theory of evolution. In particular, it is mainly inspired on the natural selection process of evolution, where over generations and through the use of operators such as mutation, crossover and selection, a positive evolution towards better solutions occurs. Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that works best for a given problem.
 
-Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that
-works best for a given problem.
+</br>
+
+![Feature-Selector Genetic Algorithm](./media/image.jpg)
+
+</br>
+
+From the original dataset, with *N* features and *M* samples, an initial population of size `n_population` chromosomes is created. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
 
 ### <a name="population">Population</a>
 
