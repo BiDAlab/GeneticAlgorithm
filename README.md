@@ -45,12 +45,17 @@ From the original dataset, with *N* features and *M* samples, **an initial popul
 
 **Once the initial population is defined, it is [evaluated](#evaluation)** to find the best chromosome (solution) in the population. Once the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for `n_gen` generations or until the solution converges.
 
-**During the generational process there are 4 steps**. The first step is to create a new population through the **[selection process](#selection)**. In the second step, the **[crossover process](#crossover)** takes place. The third step involves the **[mutation process](#mutation)**. And finally, the new population (selected, crossed and mutated from the original one in the previous generation) is **[evaluated](#evaluation)**. 
+**During the generational process there are 4 steps**: 
+
+1. The first step is to create a new population through the **[selection process](#selection)**. 
+2. In the second step, the **[crossover process](#crossover)** takes place. 
+3. The third step involves the **[mutation process](#mutation)**. 
+4. And finally, the new population (selected, crossed and mutated from the original one in the previous generation) is **[evaluated](#evaluation)**. 
 
 **These 4 steps will be repeated until one of the following situations occurs**:
 
-1. The defined number of generations (`n_gen`) is reached.
-2. The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. 
+- The defined number of generations (`n_gen`) is reached.
+- The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. 
 
 The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
 
