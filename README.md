@@ -4,7 +4,7 @@
 
 # Feature-Selector Genetic Algorithm
 
-This repository contains the Python implementation of a genetic algorithm developed by the BiDA Lab team. This algorithm was created to choose the best subset of features from a original dataset.
+This repository contains the **Python implementation of a genetic algorithm developed by the BiDA Lab team**. This algorithm was created to **choose the best subset of features from a original dataset**.
 
 ## Table of content
 
@@ -33,7 +33,7 @@ To uninstall run `pip uninstall genetic_selector`.
 
 ### <a name="howdoesitworks">How Does It Works?</a>
 
-The genetic algorithm is a metaheuristic algorithm based on Charles Darwin's theory of evolution. In particular, it is mainly inspired on the natural selection process of evolution, where over generations and through the use of operators such as mutation, crossover and selection, a positive evolution towards better solutions occurs. Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that works best for a given problem.
+The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's theory of evolution**. In particular, it is **mainly inspired on the natural selection process of evolution**, where over generations and through the use of operators such as mutation, crossover and selection, a positive evolution towards better solutions occurs. Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that works best for a given problem.
 
 <br/>
 
@@ -41,11 +41,18 @@ The genetic algorithm is a metaheuristic algorithm based on Charles Darwin's the
 
 <br/>
 
-From the original dataset, with *N* features and *M* samples, an initial population of size `n_population` chromosomes is created. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. A chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
+From the original dataset, with *N* features and *M* samples, **an initial population of size** `n_population` **chromosomes is created**. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. A chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
 
-Once the initial population is defined, it is [evaluated](#evaluation) to find the best chromosome (solution) in the population. Once the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for `n_gen` generations or until the solution converges.
+**Once the initial population is defined, it is [evaluated](#evaluation)** to find the best chromosome (solution) in the population. Once the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for `n_gen` generations or until the solution converges.
 
-During the generational process there are 4 steps. The first step is to create a new population through the [selection process](#selection). 
+**During the generational process there are 4 steps**. The first step is to create a new population through the **[selection process](#selection)**. In the second step, the **[crossover process](#crossover)** takes place. The third step involves the **[mutation process](#mutation)**. And finally, the new population (selected, crossed and mutated from the original one in the previous generation) is **[evaluated](#evaluation)**. 
+
+**These 4 steps will be repeated until one of the following situations occurs**:
+
+1. The defined number of generations (`n_gen`) is reached.
+2. The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. 
+
+The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
 
 ### <a name="selection">Selection</a>
 
