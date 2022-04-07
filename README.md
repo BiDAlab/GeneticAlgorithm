@@ -94,9 +94,42 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 
 |Parameter|Value|Default|Definition|
 |-------------|:-------------:|:-----:|:-----:|
-|<a name="estimator_par">estimator</a>|object||A supervised learning estimator with a *fit* method from Scikit-learn.
-|<a name="scoring_par">scoring</a>|str, callable, or None|None|If None (default), uses 'accuracy' for sklearn classifiers and 'r2' for sklearn regressors.<br/>If str, uses a sklearn scoring metric string identifier, for example {accuracy, f1, precision, recall, roc_auc} for classifiers, {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error', 'median_absolute_error', 'r2'} for regressors.
+|<a name="estimator_par">`estimator`</a>|object||A supervised learning estimator with a *fit* method from Scikit-learn.
+|<a name="scoring_par">`scoring`</a>|str, callable, or None|None|If None (default), uses 'accuracy' for sklearn classifiers and 'r2' for sklearn regressors.<br/>If str, uses a sklearn scoring metric string identifier, for example {accuracy, f1, precision, recall, roc_auc} for classifiers, {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error', 'median_absolute_error', 'r2'} for regressors.
+|<a name="cv_par">`cv`</a>|int, cross-validation generator or iterable|None|Determines the cross-validation splitting strategy. Possibilities are:<br/>- None, to use the default 5-fold cross validation,<br/>- int, to specify the number of folds in a (Stratified)KFold,<br/>- :term: CV splitter,<br/>- An iterable yielding (train, test) splits as arrays of indices.
+|<a name="n_gen_par">`n_gen`</a>|int|50|Determines the maximum number of generations to be carry out.
+|<a name="n_population_par">`n_population`</a>|int|100|Determines the size of the population (number of chromosomes).
+|<a name="crossover_rate_par">`crossover_rate`</a>|float|0.7|Defines the crossing probability. It must be a value of 0.0 < crossover_rate <= 1.0.
+|<a name="_par">``</a>|||
+|<a name="_par">``</a>|||
 
+    mutation_rate : double, default: 0.1
+        It defines the mutation probability. It must be a value
+        of 0.0 < crossover_rate <= 1.0.
+    tournament_k : int, default: 2
+        It defines the size of the tournament carried out in the
+        selection process. Number of chromosomes to be fought per
+        tournament.
+    return_train_score : bool, default=False
+        Whether to include train scores.
+        Computing training scores is used to get insights on how different
+        parameter settings impact the overfitting/underfitting trade-off.
+        However computing the scores on the training set can be computationally
+        expensive and is not strictly required to select the parameters that
+        yield the best generalization performance.
+    initial_best_chromosome: np.ndarray, default=None
+        A 1 dimensional binary array with the size of number of features
+        defining the initial chromosome when the genetic algorithm begin.
+    n_jobs : int, default 1
+        Number of cores to run in parallel.
+        Defaults to 1 core. If `n_jobs=-1`, then number of jobs is set
+        to number of cores. If n_jobs is bigger than number of cores,
+        then number of jobs is set to number of cores.
+    random_state : int or RandomState instance, default=None
+        Controls the randomness of life cycle of each population.
+        Pass an int for reproducible output across multiple function calls.
+    verbose : int, default=0
+        Controls verbosity of output.
 ## <a name="example">Example of Use</a>
 
 ```python
