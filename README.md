@@ -41,7 +41,7 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 <br/>
 
-From the original dataset, with *N* features and *M* samples, **an initial population of size** `n_population` **chromosomes is created**. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. A chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
+From the original dataset, with *N* features and *M* samples, **an initial population of size** `n_population` **chromosomes is created randomly**. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. A chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
 
 **Once the initial population is defined, it is [evaluated](#evaluation)** to find the best chromosome (solution) in the population. Once the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for `n_gen` generations or until the solution converges.
 
@@ -99,37 +99,15 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 |<a name="cv_par">`cv`</a>|int, cross-validation generator or iterable|None|Determines the cross-validation splitting strategy. Possibilities are:<br/>- None, to use the default 5-fold cross validation,<br/>- int, to specify the number of folds in a (Stratified)KFold,<br/>- :term: CV splitter,<br/>- An iterable yielding (train, test) splits as arrays of indices.
 |<a name="n_gen_par">`n_gen`</a>|int|50|Determines the maximum number of generations to be carry out.
 |<a name="n_population_par">`n_population`</a>|int|100|Determines the size of the population (number of chromosomes).
-|<a name="crossover_rate_par">`crossover_rate`</a>|float|0.7|Defines the crossing probability. It must be a value of 0.0 < crossover_rate <= 1.0.
-|<a name="_par">``</a>|||
-|<a name="_par">``</a>|||
+|<a name="crossover_rate_par">`crossover_rate`</a>|float|0.7|Defines the crossing probability. It must be a value between 0.0 and 1.0.
+|<a name="mutation_rate_par">`mutation_rate`</a>|float|1.0|Defines the mutation probability. It must be a value between 0.0 and 1.0. 
+|<a name="tournament_k_par">`tournament_k`</a>|int|2|Defines the size of the tournament carried out in the selection process. Number of chromosomes facing each other in each tournament.
+|<a name="return_train_score_par">`return_train_score`</a>|bool|False|Whether or not to save the scores obtained during the training process.<br/>The calculation of training scores is used to obtain information on how different parameter settings affect the overfitting/underfitting trade-off. However, calculating the scores in the training set can be computationally expensive and is not strictly necessary to select the parameters that produce the best generalisation performance.
+|<a name="initial_best_chromosome_par">`initial_best_chromosome`</a>|np.ndarray|None|A 1-dimensional binary matrix of size equal to the number of features (M). Defines the best chromosome (subset of features) in the initial population.
+|<a name="n_jobs_par">`n_jobs`</a>|int|1|Number of cores to run in parallel. By default a single-core is used.<br/>`n_jobs = -1` means the maximum number of cores on the machine. If the inserted `n_jobs` is greater than the maximum number of cores on the machine, then the value is set to the maximum number of cores on the machine. 
+|<a name="random_state_par">`random_state`</a>|int or RandomState instance|None|Controls the randomness of the life cycle in each population. Enter an integer for reproducible output.
+|<a name="verbose_par">`verbose`</a>|int|0|Control the output verbosity level.
 
-    mutation_rate : double, default: 0.1
-        It defines the mutation probability. It must be a value
-        of 0.0 < crossover_rate <= 1.0.
-    tournament_k : int, default: 2
-        It defines the size of the tournament carried out in the
-        selection process. Number of chromosomes to be fought per
-        tournament.
-    return_train_score : bool, default=False
-        Whether to include train scores.
-        Computing training scores is used to get insights on how different
-        parameter settings impact the overfitting/underfitting trade-off.
-        However computing the scores on the training set can be computationally
-        expensive and is not strictly required to select the parameters that
-        yield the best generalization performance.
-    initial_best_chromosome: np.ndarray, default=None
-        A 1 dimensional binary array with the size of number of features
-        defining the initial chromosome when the genetic algorithm begin.
-    n_jobs : int, default 1
-        Number of cores to run in parallel.
-        Defaults to 1 core. If `n_jobs=-1`, then number of jobs is set
-        to number of cores. If n_jobs is bigger than number of cores,
-        then number of jobs is set to number of cores.
-    random_state : int or RandomState instance, default=None
-        Controls the randomness of life cycle of each population.
-        Pass an int for reproducible output across multiple function calls.
-    verbose : int, default=0
-        Controls verbosity of output.
 ## <a name="example">Example of Use</a>
 
 ```python
