@@ -74,7 +74,8 @@ class GeneticSelector:
         Controls the randomness of the life cycle in each population. Enter an
         integer for reproducible output.
     verbose : int, default=0
-        Control the output verbosity level.
+        Control the output verbosity level. It must be an integer value between
+        0 and 2.
     """
 
     def __init__(self, estimator: object, scoring: str = None, cv: int = 5,
