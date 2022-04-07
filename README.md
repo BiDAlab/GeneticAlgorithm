@@ -8,6 +8,7 @@ This repository contains the **Python implementation of a genetic algorithm deve
 
 ## Table of content
 
+- [Article](#article)
 - [Installation](#install)
 - [Requirements](#requirements)
 - [How Does It Works?](#howdoesitworks)
@@ -19,17 +20,31 @@ This repository contains the **Python implementation of a genetic algorithm deve
 - [Example of use](#example)
 - [References](#references)
 
+<br/>
+
+## <a name="article">Article</a>
+
+- `[ChildCI_2022]` R. Tolosana, J.C. Ruiz-Garcia, R. Vera-Rodriguez, J. Herreros-Rodriguez, S. Romero-Tapiador, A. Morales and J. Fierrez, **"Child-Computer Interaction: Recent Works, New Dataset, and Age Detection"**, *IEEE Transactions on Emerging Topics in Computing*, doi: [10.1109/TETC.2022.3150836](https://www.doi.org/10.1109/TETC.2022.3150836), 2022.
+
+**Remember to make reference to the article** `[ChildCI_2022]` **in any work that is made public, in whatever form, based directly or indirectly on the use of the Feature-Selector Genetic Algorithm.**
+
+<br/>
+
 ## <a name="install">Installation</a>
 
 Simply clone this repository and run `pip setup.py install`.
 
 To uninstall run `pip uninstall genetic_selector`.
 
+<br/>
+
 ## <a name="requirements">Requirements</a>
 
 - Python >= 3.6
 - numpy >= 1.18
 - pandas >= 1.0.1
+
+<br/>
 
 ### <a name="howdoesitworks">How Does It Works?</a>
 
@@ -88,6 +103,8 @@ In this process, the population of chromosomes (possible solutions) is evaluated
 - A supervised learning [`estimator`](#estimator_par) with a *fit* method from Scikit-learn. The estimator can be a classifier or a regressor.
 - A defined [`scoring`](#scoring_par) to quantitatively measure the quality of a solution (chromosome).
 
+<br/>
+
 ## <a name="parameters">Parameters</a>
 
 This section defines the input parameters of the Feature-Selector Genetic Algorithm class:
@@ -107,6 +124,8 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 |<a name="n_jobs_par">`n_jobs`</a>|int|1|Number of cores to run in parallel. By default a single-core is used.<br/>`n_jobs = -1` means the maximum number of cores on the machine. If the inserted `n_jobs` is greater than the maximum number of cores on the machine, then the value is set to the maximum number of cores on the machine. 
 |<a name="random_state_par">`random_state`</a>|int or RandomState instance|None|Controls the randomness of the life cycle in each population. Enter an integer for reproducible output.
 |<a name="verbose_par">`verbose`</a>|int|0|Control the output verbosity level.
+
+<br/>
 
 ## <a name="example">Example of Use</a>
 
@@ -155,9 +174,9 @@ if __name__ == '__main__':
     print(f'Chromosomes history: {chromosomes_history}')
 ```
 
-## <a name="references">References</a>
+<br/>
 
-- R. Tolosana, J.C. Ruiz-Garcia, R. Vera-Rodriguez, J. Herreros-Rodriguez, S. Romero-Tapiador, A. Morales and J. Fierrez, **"Child-Computer Interaction: Recent Works, New Dataset, and Age Detection"**, *IEEE Transactions on Emerging Topics in Computing*, doi: [10.1109/TETC.2022.3150836](https://www.doi.org/10.1109/TETC.2022.3150836), 2022.
+## <a name="references">References</a>
 
 - G. Chandrashekar, F. Sahin, A survey on feature selection methods, *Comput. Electr. Eng.* 40 (2014) 16-28, doi: [10.1016/j.compeleceng.2013.11.024](https://doi.org/10.1016/j.compeleceng.2013.11.024).
 
