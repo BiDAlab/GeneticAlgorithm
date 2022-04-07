@@ -85,7 +85,7 @@ In this process, the population of chromosomes (possible solutions) is evaluated
 
 ## <a name="parameters">Parameters</a>
 
-This section defines the input parameters of the Feature-Selector Genetic Algorithm:
+This section defines the input parameters of the Feature-Selector Genetic Algorithm class:
 
 |Parameter|Value|Default|Definition|
 |-------------|:-------------:|:-----:|:-----:|
