@@ -74,11 +74,11 @@ From the original dataset, with *N* features and *M* samples, **an initial popul
 
 The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
 
-### <a name="selection">Selection</a>
+### <a name="selection">Selection (To be updated)</a>
 
 To carry out the selection process, the entire population is evaluated using the model's average, the best chromosome is selected and the remaining chromosomes are selected per *tournament_k* size tournament.
 
-### <a name="crossover">Crossover</a>
+### <a name="crossover">Crossover (To be updated)</a>
 
 To make the crossing, mathematical hope is used. That is, if the probability of crossing is 0.5 and we have a population size of 300 (150 pairs), the mathematical hope tells us that approximately 75 crosses will be made. The crossing is done by cutting through a random position of all the genes.
 
@@ -86,7 +86,7 @@ To make the crossing, mathematical hope is used. That is, if the probability of 
 n_crosses = crossover_rate * (population_size / 2)
 ```
 
-### <a name="mutation">Mutation</a>
+### <a name="mutation">Mutation (To be updated)</a>
 
 For the mutation process, we again use mathematical hope. That is, if we have a mutation probability at the gene level of 0.2 and a total number of genes of 6000, then the number of mutations that will be made on average will be 1200. Mutations will be made by generating two random numbers per mutation, one to choose the chromosome and one to choose the gene to change.
 
@@ -98,7 +98,7 @@ n_mutations = mutation_rate * population_size * genes_per_chromosome
 
 ### <a name="evaluation">Evaluation</a>
 
-In this process, the population of chromosomes (possible solutions) is evaluated through the defined `scoring` to find the best solution. To be able to evaluate each chromosome, the following is needed:
+In this process, the population of chromosomes (possible solutions) is evaluated through the defined [`scoring`](#scoring_par) to find the best solution. To be able to evaluate each chromosome, the following is needed:
 
 - A supervised learning [`estimator`](#estimator_par) with a *fit* method from Scikit-learn. The estimator can be a classifier or a regressor.
 - A defined [`scoring`](#scoring_par) to quantitatively measure the quality of a solution (chromosome).
@@ -127,7 +127,7 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 
 <br/>
 
-## <a name="example">Example of Use</a>
+## <a name="example">Example of Use (To be updated)</a>
 
 ```python
 import pandas as pd
