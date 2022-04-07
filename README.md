@@ -15,6 +15,7 @@
   - [Crossover](#crossover)
   - [Mutation](#mutation)
   - [Evaluation](#evaluation)
+- [Options](#options)
 - [Example of use](#example)
 - [References](#references)
 
@@ -72,6 +73,8 @@ To "see how good" each of the population's chromosomes are, the average obtained
 ```bash
 n_mutations = mutation_rate * population_size * genes_per_chromosome
 ```
+
+## <a name="options">Options</a>
 
 ## <a name="example">Example of Use</a>
 
