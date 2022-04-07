@@ -78,7 +78,7 @@ In this process, the population of chromosomes (possible solutions) is evaluated
 
 |Parameter|Value|Default|Definition|
 |-------------|:-------------:|:-----:|:-----:|
-|estimator|object|None|A supervised learning estimator with a *fit* method from Scikit-learn.
+|estimator|object||A supervised learning estimator with a *fit* method from Scikit-learn.
 |scoring|str, callable, or None|None|If None (default), uses 'accuracy' for sklearn classifiers and 'r2' for sklearn regressors.<br/>If str, uses a sklearn scoring metric string identifier, for example {accuracy, f1, precision, recall, roc_auc} for classifiers, {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error', 'median_absolute_error', 'r2'} for regressors.
 
 ## <a name="options">Options</a>
