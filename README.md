@@ -15,7 +15,7 @@ This repository contains the **Python implementation of a genetic algorithm deve
   - [Crossover](#crossover)
   - [Mutation](#mutation)
   - [Evaluation](#evaluation)
-- [Options](#options)
+- [Parameters](#parameters)
 - [Example of use](#example)
 - [References](#references)
 
@@ -80,15 +80,17 @@ n_mutations = mutation_rate * population_size * genes_per_chromosome
 
 In this process, the population of chromosomes (possible solutions) is evaluated through the defined `scoring` to find the best solution. To be able to evaluate each chromosome, the following is needed:
 
-- A supervised learning `estimator` with a *fit* method from Scikit-learn. The estimator can be a classifier or a regressor.
-- A defined scoring to quantitatively measure the quality of a solution (chromosome).
+- A supervised learning [`estimator`](#estimator_par) with a *fit* method from Scikit-learn. The estimator can be a classifier or a regressor.
+- A defined [`scoring`](#scoring_par) to quantitatively measure the quality of a solution (chromosome).
+
+## <a name="parameters">Parameters</a>
+
+This section defines the input parameters of the Feature-Selector Genetic Algorithm:
 
 |Parameter|Value|Default|Definition|
 |-------------|:-------------:|:-----:|:-----:|
-|estimator|object||A supervised learning estimator with a *fit* method from Scikit-learn.
-|scoring|str, callable, or None|None|If None (default), uses 'accuracy' for sklearn classifiers and 'r2' for sklearn regressors.<br/>If str, uses a sklearn scoring metric string identifier, for example {accuracy, f1, precision, recall, roc_auc} for classifiers, {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error', 'median_absolute_error', 'r2'} for regressors.
-
-## <a name="options">Options</a>
+|<a name="estimator_par">estimator</a>|object||A supervised learning estimator with a *fit* method from Scikit-learn.
+|<a name="scoring_par">scoring</a>|str, callable, or None|None|If None (default), uses 'accuracy' for sklearn classifiers and 'r2' for sklearn regressors.<br/>If str, uses a sklearn scoring metric string identifier, for example {accuracy, f1, precision, recall, roc_auc} for classifiers, {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error', 'median_absolute_error', 'r2'} for regressors.
 
 ## <a name="example">Example of Use</a>
 
