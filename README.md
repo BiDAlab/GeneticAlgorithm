@@ -58,7 +58,7 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 From the original dataset, with *N* features and *M* samples, **an initial population of size** [`n_population`](#n_population_par) **chromosomes is created randomly**. A chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`n_population`](#n_population_par) initial solutions.
 
-**Once the initial population is defined, it is [evaluated](#evaluation)** to find the best chromosome (solution) in the population. Then, when the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
+**Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the evolutionary process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
 
 **During the generational process there are 4 steps**: 
 
