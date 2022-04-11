@@ -1,0 +1,4 @@
+build/*
+dist/*
+genetic_selector.egg-info/*
+genetic_selector/__pycache__/*

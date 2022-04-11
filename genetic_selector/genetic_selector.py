@@ -330,13 +330,13 @@ class GeneticSelector:
         # Cross-validation execution
         scores = cross_validate(
             self.estimator, data, self.y, cv=self.cv, scoring=self.scorer,
-            verbose=self.verbose, calc_train_score=self.calc_train_score)
+            verbose=self.verbose, return_train_score=self.calc_train_score)
 
         if self.calc_train_score:
-            return (scores['val_score'].mean(),
+            return (scores['test_score'].mean(),
                     scores['train_score'].mean())
         else:
-            return (scores['val_score'].mean(), None)
+            return (scores['test_score'].mean(), None)
 
     def __evaluate(self, population: np.ndarray) -> np.ndarray:
         # Pool for parallelization
@@ -374,9 +374,8 @@ class GeneticSelector:
         for i in range(0, n_crosses*2, 2):
             cut_index = np.random.randint(1, self.X.shape[1])
             tmp = crossover_population[i, cut_index:].copy()
-            crossover_population[i, cut_index:],
-            crossover_population[i+1, cut_index:] = \
-                crossover_population[i+1, cut_index:], tmp
+            crossover_population[i, cut_index:], crossover_population[i+1,
+                                                                      cut_index:] = crossover_population[i+1, cut_index:], tmp
             # Avoid null chromosomes
             if not all(crossover_population[i]):
                 crossover_population[i] = population[i]
@@ -427,7 +426,7 @@ class GeneticSelector:
                  self.best_chromosome[1]) <= self.threshold:
             self.n_times_convergence = self.n_times_convergence + 1
             print(
-                f'# Best average value found {self.n_times_convergence}'
+                f'# Same scoring value found {self.n_times_convergence}'
                 f'/{self.threshold_times_convergence} times.')
             if self.n_times_convergence == self.threshold_times_convergence:
                 self.convergence = True
