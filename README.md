@@ -78,7 +78,7 @@ From the original dataset, with *N* features and *M* samples, **an initial popul
 
 ### <a name="selection">Selection</a>
 
-In the process, **a new population is created by selecting those chromosomes (solutions) from the previous population that are the strongest (with the best** [`scoring`](#scoring_par)**)**. The new population must have the same [`n_population`](#n_population_par) as the old one. For this purpose, a **tournament process** is carried out.
+In the process, **a new population is created by selecting those chromosomes (solutions) from the previous population that are the strongest (with the best** [`scoring`](#scoring_par)**)**. The new population must have the same [`n_population`](#n_population_par) size as the old one. For this purpose, a **tournament process** is carried out.
 
 Initially, **the best solution from the previous population is always added** to ensure this solution in the next population. Then, **an iterative process is repeated until the new population is complete**:
 
