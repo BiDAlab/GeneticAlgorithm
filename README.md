@@ -184,15 +184,18 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 
 ```python
 import pandas as pd
+import numpy as np
 from genetic_selector import GeneticSelector
 from sklearn import datasets
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
 if __name__ == '__main__':
-    # You should not set the number of cores (n_jobs) in the Scikit-learn
-    # model to avoid UserWarning. The genetic selector is already parallelizable.
-    rf_clf = RandomForestClassifier(n_estimators=300)
+    # Set random state
+    random_state = 42
+    
+    # Define estimator
+    rf_clf = RandomForestClassifier(n_estimators=300, random_state=random_state)
 
     # Load example dataset from Scikit-learn
     dataset = datasets.load_wine()
@@ -200,22 +203,29 @@ if __name__ == '__main__':
     y = pd.Series(data=dataset['target'])
 
     # Split into train and test
-    train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.2)
+    train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.20, random_state=random_state)
+
+    # Set a initial best chromosome for first population
+    best_chromosome = np.array([1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0])
 
     # Create GeneticSelector instance
+    # You should not set the number of cores (n_jobs) in the Scikit-learn
+    # model to avoid UserWarning. The genetic selector is already parallelizable.
     genetic_selector = GeneticSelector(
-        rf_clf, cv=5, n_gen=30, population_size=10, crossover_rate=0.8,
-        mutation_rate=0.15, tournament_k=2, calc_train_score=True,
-        initial_best_chromosome=None, n_jobs=-1, random_state=42, verbose=0)
+        estimator=rf_clf, cv=5, n_gen=30, population_size=10,
+        crossover_rate=0.8, mutation_rate=0.15, tournament_k=2,
+        calc_train_score=True, initial_best_chromosome=best_chromosome,
+        n_jobs=-1, random_state=random_state, verbose=0)
+    
     # Fit features
     genetic_selector.fit(train_X, train_y)
 
-    # Get result
+    # Show the results
     support = genetic_selector.support()
     best_chromosome = support[0][0]
     score = support[0][1]
     best_epoch = support[0][2]
-    print(f'Best chromosome: {best_chromosome}')
+    print(f'Best chromosome: {best_chromosome} -> (Features IDs: {np.where(best_chromosome)[0]})')
     print(f'Best score: {score}')
     print(f'Best epoch: {best_epoch}')
 
@@ -231,93 +241,94 @@ C:\Users\User\example>python example_of_use.py
 
 # Creating initial population with 10 chromosomes...
 # Evaluating initial population...
-# Current best chromosome: (array([0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1]), 0.993103448275862, 0)
+# Current best chromosome: (array([1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0]), 0.9502463054187192, 0)
 
 # Creating generation 1...
 # Selection 1 done.
 # Crossover 1 done.
 # Mutation 1 done.
 # Evaluating population of new generation 0...
-# (WORST) No better chromosome than the current one has been found (0.9928571428571429).
-# Current best chromosome: (array([0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1]), 0.993103448275862, 0)
-# Elapsed generation time: 3.16 seconds
+# (BETTER) A better chromosome than the current one has been found (0.9788177339901478).
+# Current best chromosome: (array([1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]), 0.9788177339901478, 1)
+# Elapsed generation time: 3.28 seconds
 
 # Creating generation 2...
 # Selection 2 done.
 # Crossover 2 done.
 # Mutation 2 done.
 # Evaluating population of new generation 1...
-# (WORST) No better chromosome than the current one has been found (0.9928571428571429).
-# Current best chromosome: (array([0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1]), 0.993103448275862, 0)
-# Elapsed generation time: 3.04 seconds
+# (WORST) No better chromosome than the current one has been found (0.9716748768472907).
+# Current best chromosome: (array([1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]), 0.9788177339901478, 1)
+# Elapsed generation time: 3.16 seconds
 
 # Creating generation 3...
 # Selection 3 done.
 # Crossover 3 done.
 # Mutation 3 done.
 # Evaluating population of new generation 2...
-# (WORST) No better chromosome than the current one has been found (0.9928571428571429).
-# Current best chromosome: (array([0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1]), 0.993103448275862, 0)
-# Elapsed generation time: 3.16 seconds
+# (WORST) No better chromosome than the current one has been found (0.9785714285714286).
+# Current best chromosome: (array([1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]), 0.9788177339901478, 1)
+# Elapsed generation time: 3.14 seconds
 
-.......
+........
 
 # Creating generation 28...
 # Selection 28 done.
 # Crossover 28 done.
 # Mutation 28 done.
 # Evaluating population of new generation 27...
-# (WORST) No better chromosome than the current one has been found (0.9928571428571429).
-# Current best chromosome: (array([0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1]), 1.0, 24)
-# Elapsed generation time: 3.06 seconds
+# Same scoring value found 2/8 times.
+# Current best chromosome: (array([1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0]), 0.9928571428571429, 26)
+# Elapsed generation time: 3.19 seconds
 
 # Creating generation 29...
 # Selection 29 done.
 # Crossover 29 done.
 # Mutation 29 done.
 # Evaluating population of new generation 28...
-# (WORST) No better chromosome than the current one has been found (0.9928571428571429).
-# Current best chromosome: (array([0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1]), 1.0, 24)
-# Elapsed generation time: 3.13 seconds
+# Same scoring value found 3/8 times.
+# Current best chromosome: (array([1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0]), 0.9928571428571429, 26)
+# Elapsed generation time: 3.10 seconds
 
 # Creating generation 30...
 # Selection 30 done.
 # Crossover 30 done.
 # Mutation 30 done.
 # Evaluating population of new generation 29...
-# (WORST) No better chromosome than the current one has been found (0.9928571428571429).
-# Current best chromosome: (array([0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1]), 1.0, 24)
-# Elapsed generation time: 3.02 seconds
-# Elapsed time: 95.24 seconds
+# Same scoring value found 4/8 times.
+# Current best chromosome: (array([1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0]), 0.9928571428571429, 26)
+# Elapsed generation time: 3.08 seconds
+# Elapsed time: 96.84 seconds
 
 
-Best chromosome: [0 0 0 1 1 1 1 0 0 1 1 1 1]
-Best score: 1.0
-Best epoch: 24
-Test scores: [0.993103448275862, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 
-                0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 
-                0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.993103448275862, 
-                0.9928571428571429, 0.993103448275862, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 
-                0.9928571428571429, 0.9928571428571429, 0.9859605911330049, 0.9857142857142858, 1.0, 0.9928571428571429, 
-                0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429]
-Train scores: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 
-                1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-Chromosomes history: [array([ 3,  4,  5,  6,  7,  9, 10, 12], dtype=int64), array([ 0,  1,  2,  3,  6,  8,  9, 11, 12], dtype=int64), 
-array([ 0,  1,  2,  3,  4,  5,  6,  7,  9, 10, 11, 12], dtype=int64), array([ 0,  2,  3,  4,  5,  6,  9, 10, 12], dtype=int64), 
-array([ 0,  2,  3,  4,  5,  6,  9, 10, 11, 12], dtype=int64), array([ 0,  2,  3,  4,  5,  6,  9, 10, 11, 12], dtype=int64), 
-array([ 0,  1,  2,  3,  4,  5,  6,  7,  9, 10, 11, 12], dtype=int64), array([ 0,  1,  2,  3,  4,  5,  6,  9, 10, 12], dtype=int64), 
-array([ 0,  1,  3,  4,  5,  6,  8,  9, 10, 12], dtype=int64), array([ 0,  1,  3,  4,  6,  8,  9, 10, 12], dtype=int64), 
-array([ 0,  1,  3,  4,  6,  8,  9, 10, 11, 12], dtype=int64), array([ 0,  2,  3,  4,  6,  7,  8,  9, 10, 11, 12], dtype=int64), 
-array([ 0,  2,  3,  4,  6,  8,  9, 10, 11, 12], dtype=int64), array([ 0,  1,  4,  6,  8,  9, 10, 11, 12], dtype=int64), 
-array([ 1,  4,  8,  9, 10, 11, 12], dtype=int64), array([ 0,  1,  2,  4,  5,  7,  9, 10, 11, 12], dtype=int64), 
-array([ 1,  2,  4,  5,  7,  8,  9, 11, 12], dtype=int64), array([ 0,  1,  3,  4,  5,  6,  8,  9, 10, 12], dtype=int64), 
-array([ 0,  1,  4,  6,  8,  9, 10, 12], dtype=int64), array([ 0,  1,  4,  7,  8,  9, 10, 11, 12], dtype=int64), 
-array([ 0,  1,  4,  8,  9, 10, 11, 12], dtype=int64), array([ 0,  1,  4,  5,  9, 11], dtype=int64), 
-array([ 1,  4,  5,  8,  9, 10, 12], dtype=int64), array([ 0,  2,  4,  5,  6,  9, 11], dtype=int64), 
-array([ 3,  4,  5,  6,  9, 10, 11, 12], dtype=int64), array([ 0,  4,  5,  7,  9, 10, 11, 12], dtype=int64), 
-array([ 4,  5,  6,  9, 10, 11, 12], dtype=int64), array([ 1,  4,  5,  6,  8,  9, 10, 11, 12], dtype=int64), 
-array([ 4,  5,  6,  8,  9, 10, 12], dtype=int64), array([ 0,  1,  4,  5,  6,  7,  9, 10, 11, 12], dtype=int64), 
-array([ 0,  1,  2,  4,  5,  6,  7,  9, 10, 11, 12], dtype=int64)]
+Best chromosome: [1 1 0 1 1 0 1 1 1 0 1 0 0] -> (Features IDs: [ 0  1  3  4  6  7  8 10])
+Best score: 0.9928571428571429
+Best epoch: 26
+Test scores: [0.9502463054187192, 0.9788177339901478, 0.9716748768472907, 0.9785714285714286, 0.9788177339901478, 
+              0.9788177339901478, 0.97192118226601, 0.9790640394088669, 0.9790640394088669, 0.9785714285714286, 
+              0.9788177339901478, 0.9785714285714286, 0.9857142857142858, 0.9785714285714286, 0.9788177339901478, 
+              0.9788177339901478, 0.9785714285714286, 0.9857142857142858, 0.9785714285714286, 0.9785714285714286, 
+              0.9785714285714286, 0.9857142857142858, 0.9857142857142858, 0.9859605911330049, 0.9788177339901478, 
+              0.9859605911330049, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 0.9928571428571429, 
+              0.9928571428571429]
+Train scores: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 
+               1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+Chromosomes history: [array([1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0]), array([1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]), 
+                      array([1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1]), array([1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0]), 
+                      array([1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1]), array([1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1]), 
+                      array([1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0]), array([1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0]), 
+                      array([1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0]), array([0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1]), 
+                      array([1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0]), array([1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1]), 
+                      array([1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1]), array([1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1]), 
+                      array([1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1]), array([1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1]), 
+                      array([1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1]), array([1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1]), 
+                      array([1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1]), array([1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1]), 
+                      array([1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1]), array([1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1]), 
+                      array([1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1]), array([1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0]), 
+                      array([1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1]), array([1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0]), 
+                      array([1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0]), array([1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0]), 
+                      array([1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0]), array([1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0]), 
+                      array([1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0])]
 ```
 
 <br/>
