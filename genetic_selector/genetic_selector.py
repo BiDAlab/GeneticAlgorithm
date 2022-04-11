@@ -293,7 +293,7 @@ class GeneticSelector:
         self.val_scores.append(val_score)
         if train_score is not None:
             self.train_scores.append(train_score)
-        self.chromosomes_history.append(np.where(best_current_chromosome)[0])
+        self.chromosomes_history.append(best_current_chromosome)
 
     def support(self) -> np.ndarray:
         """
