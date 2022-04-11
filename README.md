@@ -16,7 +16,7 @@ This repository contains the **Python implementation of a genetic algorithm deve
   - [Crossover](#crossover)
   - [Mutation](#mutation)
   - [Evaluation](#evaluation)
-- [Parameters](#parameters)
+- [Class Parameters](#parameters)
 - [Example of use](#example)
 - [References](#references)
 
