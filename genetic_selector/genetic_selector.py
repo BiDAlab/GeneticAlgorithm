@@ -152,7 +152,7 @@ class GeneticSelector:
     def fit(self, X: pd.DataFrame, y: pd.Series):
         # Initialize output variables
         self.train_scores = []
-        self.test_scores = []
+        self.val_scores = []
         self.chromosomes_history = []
 
         # Check cross-validation is valid
@@ -207,12 +207,12 @@ class GeneticSelector:
         # Save output results
         if self.return_train_score:
             self.__save_output_results(
-                test_score=population_scores[best_chromosome_index, 0],
+                val_score=population_scores[best_chromosome_index, 0],
                 best_current_chromosome=self.population[best_chromosome_index],
                 train_score=population_scores[best_chromosome_index, 1])
         else:
             self.__save_output_results(
-                test_score=population_scores[best_chromosome_index, 0],
+                val_score=population_scores[best_chromosome_index, 0],
                 best_current_chromosome=self.population[best_chromosome_index])
 
         # Loop until evaluation converge
@@ -250,13 +250,13 @@ class GeneticSelector:
             # Save output results
             if self.return_train_score:
                 self.__save_output_results(
-                    test_score=population_scores[best_chromosome_index, 0],
+                    val_score=population_scores[best_chromosome_index, 0],
                     best_current_chromosome=self.population
                     [best_chromosome_index],
                     train_score=population_scores[best_chromosome_index, 1])
             else:
                 self.__save_output_results(
-                    test_score=population_scores[best_chromosome_index, 0],
+                    val_score=population_scores[best_chromosome_index, 0],
                     best_current_chromosome=self.population
                     [best_chromosome_index])
 
@@ -273,7 +273,7 @@ class GeneticSelector:
         elapsed_time = time.time() - init_time
         print('# Elapsed time: %.2f seconds' % elapsed_time)
 
-    def __save_output_results(self, test_score: float,
+    def __save_output_results(self, val_score: float,
                               best_current_chromosome: np.ndarray,
                               train_score: float = None):
         """
@@ -282,26 +282,26 @@ class GeneticSelector:
         variables.
 
         Args:
-            test_score (float): Best test score achieved in the present
+            val_score (float): Best validation score achieved in the present
             generation for the best chromosome.
             train_score (float): Trainig score achieved in the present
             generation for the best chromosome.
             best_current_chromosome (np.ndarray): That chromosome whose
-                test_score was the best one found in the present generation.
+                val_score was the best one found in the present generation.
         """
-        self.test_scores.append(test_score)
+        self.val_scores.append(val_score)
         if train_score is not None:
             self.train_scores.append(train_score)
         self.chromosomes_history.append(np.where(best_current_chromosome)[0])
 
-    def _support(self) -> np.ndarray:
+    def support(self) -> np.ndarray:
         """
             Return an array with 4 values:
                 - best_chromosome : tuple
                     Tuple with the values (np.ndarray, float, int) =>
                     (chromosome, score, i_gen)
-                - test_scores : np.ndarray
-                    An array with test scores during each generation.
+                - val_scores : np.ndarray
+                    An array with validation scores during each generation.
                 - train_scores : np.ndarray
                     An array with training scores during each generation. Could
                     be `None` if self.return_train_score = False.
@@ -312,7 +312,7 @@ class GeneticSelector:
 
         return np.array([
             self.best_chromosome,
-            self.test_scores,
+            self.val_scores,
             self.train_scores if self.return_train_score else None,
             self.chromosomes_history
         ])
@@ -332,10 +332,10 @@ class GeneticSelector:
             verbose=self.verbose, return_train_score=self.return_train_score)
 
         if self.return_train_score:
-            return (scores['test_score'].mean(),
+            return (scores['val_score'].mean(),
                     scores['train_score'].mean())
         else:
-            return (scores['test_score'].mean(), None)
+            return (scores['val_score'].mean(), None)
 
     def __evaluate(self, population: np.ndarray) -> np.ndarray:
         # Pool for parallelization
