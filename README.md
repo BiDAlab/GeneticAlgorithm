@@ -174,7 +174,7 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 
 <br/>
 
-## <a name="example">Example of Use (To be updated)</a>
+## <a name="example">Example of Use</a>
 
 ```python
 import pandas as pd
