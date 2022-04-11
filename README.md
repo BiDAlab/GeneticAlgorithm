@@ -56,7 +56,7 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 <br/>
 
-From the original dataset, with *N* features and *M* samples, **an initial population of size** [`n_population`](#n_population_par) **chromosomes is created randomly**. A chromosome is a binary array of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`n_population`](#n_population_par) initial solutions.
+From the original dataset, with *N* features and *M* samples, **an initial population of size** [`population_size`](#population_size_par) **chromosomes is created randomly**. A chromosome is a binary array of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`population_size`](#population_size_par) initial solutions.
 
 **Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the generational process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
 
@@ -88,7 +88,7 @@ When the process terminates, the *support()* function call returns:
 
 ### <a name="selection">Selection</a>
 
-In the process, **a new population is created by selecting those chromosomes (solutions) from the previous population that are the strongest (with the best** [`scoring`](#scoring_par)**)**. The new population must have the same [`n_population`](#n_population_par) size as the old one. For this purpose, a **tournament process** is carried out.
+In the process, **a new population is created by selecting those chromosomes (solutions) from the previous population that are the strongest (with the best** [`scoring`](#scoring_par)**)**. The new population must have the same [`population_size`](#population_size_par) size as the old one. For this purpose, a **tournament process** is carried out.
 
 Initially, **the best solution from the previous population is always added** to ensure this solution in the next population. Then, **an iterative process is repeated until the new population is complete**:
 
@@ -110,7 +110,7 @@ The crossover operation **takes cares of generating new solutions by mixing the 
 
 <br/>
 
-The number of crossovers to be applied to the new population is calculated using the variable [`crossover_rate`](#crossover_rate_par) and mathematical hope.
+The number of crossovers to be applied to the new population is calculated using the [`crossover_rate`](#crossover_rate_par), the [`population_size`](#population_size_par) and mathematical hope.
 
 ```bash
 n_crossovers = crossover_rate * (population_size / 2)
@@ -118,11 +118,11 @@ n_crossovers = crossover_rate * (population_size / 2)
 
 ------
 
-### <a name="mutation">Mutation (To be updated)</a>
+### <a name="mutation">Mutation</a>
 
-For the mutation process, we again use mathematical hope. That is, if we have a mutation probability at the gene level of 0.2 and a total number of genes of 6000, then the number of mutations that will be made on average will be 1200. Mutations will be made by generating two random numbers per mutation, one to choose the chromosome and one to choose the gene to change.
+The mutation operation **takes cares of generating new solutions by altering some genes in the chromosomes (solutions) of the new population**. Each chromosome is a binary matrix of 0 and 1. The mutation operator **selects a random chromosome from the new population**. From that chromosome it **selects a random gene (feature) and alters its value by changing 0 to 1 and vice versa**.
 
-To "see how good" each of the population's chromosomes are, the average obtained from the use of a Scikit-learn classification model will be used. In addition, this model will be trained using cross-validation for validation.
+The number of mutations to be applied to the new population is calculated using the [`mutation_rate`](#mutation_rate_par), the [`population_size`](#population_size_par), the number of genes per chromosome (N) and mathematical hope.
 
 ```bash
 n_mutations = mutation_rate * population_size * genes_per_chromosome
@@ -154,7 +154,7 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 |<a name="scoring_par">`scoring`</a>|str, callable, or None|None|If None (default), uses 'accuracy' for sklearn classifiers and 'r2' for sklearn regressors.<br/>If str, uses a sklearn scoring metric string identifier, for example {accuracy, f1, precision, recall, roc_auc} for classifiers, {'mean_absolute_error', 'mean_squared_error'/'neg_mean_squared_error', 'median_absolute_error', 'r2'} for regressors.
 |<a name="cv_par">`cv`</a>|int, cross-validation generator or iterable|None|Determines the cross-validation splitting strategy. Possibilities are:<br/>- None, to use the default 5-fold cross validation,<br/>- int, to specify the number of folds in a (Stratified)KFold,<br/>- :term: CV splitter,<br/>- An iterable yielding (train, test) splits as arrays of indices.
 |<a name="n_gen_par">`n_gen`</a>|int|50|Determines the maximum number of generations to be carry out.
-|<a name="n_population_par">`n_population`</a>|int|100|Determines the size of the population (number of chromosomes).
+|<a name="population_size_par">`population_size`</a>|int|100|Determines the size of the population (number of chromosomes).
 |<a name="crossover_rate_par">`crossover_rate`</a>|float|0.7|Defines the crossing probability. It must be a value between 0.0 and 1.0.
 |<a name="mutation_rate_par">`mutation_rate`</a>|float|1.0|Defines the mutation probability. It must be a value between 0.0 and 1.0. 
 |<a name="tournament_k_par">`tournament_k`</a>|int|2|Defines the size of the tournament carried out in the selection process. Number of chromosomes facing each other in each tournament.
