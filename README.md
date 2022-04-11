@@ -32,7 +32,7 @@ This repository contains the **Python implementation of a genetic algorithm deve
 
 ## <a name="install">Installation</a>
 
-Simply clone this repository and run `pip setup.py install`.
+Simply clone this repository and run `python setup.py install`.
 
 To uninstall run `pip uninstall genetic_selector`.
 
