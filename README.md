@@ -56,7 +56,7 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 <br/>
 
-From the original dataset, with *N* features and *M* samples, **an initial population of size** [`population_size`](#population_size_par) **chromosomes is created randomly**. A chromosome is a binary array of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`population_size`](#population_size_par) initial solutions.
+From the original dataset, with *N* samples and *M* features, **an initial population of size** [`population_size`](#population_size_par) **chromosomes is created randomly**. A chromosome is a binary array of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`population_size`](#population_size_par) initial solutions.
 
 **Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the generational process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
 
@@ -122,7 +122,7 @@ n_crossovers = crossover_rate * (population_size / 2)
 
 The mutation operation **takes cares of generating new solutions by altering some genes in the chromosomes (solutions) of the new population**. Each chromosome is a binary matrix of 0 and 1. The mutation operator **selects a random chromosome from the new population**. From that chromosome it **selects a random gene (feature) and alters its value by changing 0 to 1 and vice versa**.
 
-The number of mutations to be applied to the new population is calculated using the [`mutation_rate`](#mutation_rate_par), the [`population_size`](#population_size_par), the number of genes per chromosome (N) and mathematical hope.
+The number of mutations to be applied to the new population is calculated using the [`mutation_rate`](#mutation_rate_par), the [`population_size`](#population_size_par), the number of genes per chromosome *(N)* and mathematical hope.
 
 ```bash
 n_mutations = mutation_rate * population_size * genes_per_chromosome
