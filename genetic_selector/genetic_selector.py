@@ -374,8 +374,9 @@ class GeneticSelector:
         for i in range(0, n_crosses*2, 2):
             cut_index = np.random.randint(1, self.X.shape[1])
             tmp = crossover_population[i, cut_index:].copy()
-            crossover_population[i, cut_index:], crossover_population[i+1,
-                                                                      cut_index:] = crossover_population[i+1, cut_index:], tmp
+            crossover_population[i, cut_index:],
+            crossover_population[i+1, cut_index:] = \
+                crossover_population[i+1, cut_index:], tmp
             # Avoid null chromosomes
             if not all(crossover_population[i]):
                 crossover_population[i] = population[i]
