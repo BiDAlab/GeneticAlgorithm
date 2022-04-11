@@ -48,7 +48,7 @@ To uninstall run `pip uninstall genetic_selector`.
 
 ### <a name="howdoesitworks">How Does It Works?</a>
 
-The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's theory of evolution**. In particular, it is **mainly inspired on the natural selection process of evolution**, where over generations and through the use of operators such as mutation, crossover and selection, a positive evolution towards better solutions occurs. Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that works best for a given problem.
+The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's theory of evolution**. In particular, it is **inspired on the natural selection process of evolution**, where over generations and through the use of operators such as **mutation, crossover and selection**, a positive evolution towards better solutions occurs. Originally, the genetic algorithm was created as a search algorithm, but in this case, it has been adapted to find the subset of features that works best for a given problem.
 
 <br/>
 
