@@ -42,7 +42,7 @@ class GeneticSelector:
         - An iterable yielding (train, test) splits as arrays of indices.
     n_gen : int, default: 50
         Determines the maximum number of generations to be carry out.
-    n_population : int, default: 100
+    population_size : int, default: 100
         Determines the size of the population (number of chromosomes).
     crossover_rate : float, default: 0.7
         Defines the crossing probability. It must be a value between 0.0 and
@@ -80,7 +80,7 @@ class GeneticSelector:
     """
 
     def __init__(self, estimator: object, scoring: str = None, cv: int = 5,
-                 n_gen: int = 50, n_population: int = 100, crossover_rate:
+                 n_gen: int = 50, population_size: int = 100, crossover_rate:
                  float = 0.7, mutation_rate: float = 0.1,
                  tournament_k: int = 2, calc_train_score: bool = False,
                  initial_best_chromosome: np.ndarray = None, n_jobs: int = 1,
@@ -114,7 +114,7 @@ class GeneticSelector:
             raise ValueError(
                 'The number of generations must be greater than 1.')
         # Size of population (number of chromosomes)
-        self.n_population = n_population
+        self.population_size = population_size
         # Crossover and mutations likelihood
         if crossover_rate <= 0.0 or mutation_rate <= 0.0 or \
                 crossover_rate > 1.0 or mutation_rate > 1.0:
@@ -169,7 +169,7 @@ class GeneticSelector:
 
         # Initialize population
         print(
-            f'# Creating initial population with {self.n_population}'
+            f'# Creating initial population with {self.population_size}'
             ' chromosomes...')
         self.__initialize(X.shape[1])
 
@@ -187,7 +187,7 @@ class GeneticSelector:
                          (self.initial_best_chromosome >= 0))[0]):
 
             # Introduce the best in the population
-            index_insertion = np.random.randint(self.n_population)
+            index_insertion = np.random.randint(self.population_size)
             self.population[index_insertion] = self.initial_best_chromosome
 
             # Evaluate initial population and update best_chromosome
@@ -319,9 +319,9 @@ class GeneticSelector:
         ])
 
     def __initialize(self, n_genes: int):
-        # Create n_population chromosomes
+        # Create population_size chromosomes
         self.population = np.random.randint(
-            2, size=(self.n_population, n_genes))
+            2, size=(self.population_size, n_genes))
 
     def estimate(self, chromosome: np.ndarray) -> float:
         # Select those features with ones in chromosome
@@ -350,7 +350,7 @@ class GeneticSelector:
         new_population = [population[best_chromosome_index]]
 
         # Tournament_k chromosome tournament until fill the numpy array
-        while len(new_population) != self.n_population:
+        while len(new_population) != self.population_size:
             # Generate tournament_k positions randomly
             k_chromosomes = np.random.randint(
                 len(population), size=self.tournament_k)
@@ -365,7 +365,7 @@ class GeneticSelector:
 
     def __crossover(self, population: np.ndarray) -> np.ndarray:
         # Define the number of crosses
-        n_crosses = int(self.crossover_rate * int(self.n_population / 2))
+        n_crosses = int(self.crossover_rate * int(self.population_size / 2))
 
         # Make a copy from current population
         crossover_population = population.copy()
@@ -388,11 +388,11 @@ class GeneticSelector:
     def __mutation(self, population: np.ndarray) -> np.ndarray:
         # Define number of mutations to do
         n_mutations = int(
-            self.mutation_rate * self.n_population * self.X.shape[1])
+            self.mutation_rate * self.population_size * self.X.shape[1])
 
         # Mutating n_mutations genes
         for _ in range(n_mutations):
-            chromosome_index = np.random.randint(0, self.n_population)
+            chromosome_index = np.random.randint(0, self.population_size)
             gene_index = np.random.randint(0, self.X.shape[1])
             population[chromosome_index, gene_index] = 0 if \
                 population[chromosome_index, gene_index] == 1 else 1
