@@ -24,7 +24,7 @@ This repository contains the **Python implementation of a genetic algorithm deve
 
 ## <a name="article">Article</a>
 
-**NOTE: Remember to make reference to the next article in any work that is made public, in whatever form, based directly or indirectly on the use of the Feature-Selector Genetic Algorithm.**
+**NOTE: This project is licensed in accordance with the terms of the licence CC BY-NC-SA 4.0. Remember to make reference to the next article in any work that is made public, in whatever form, based directly or indirectly on the use of the Feature-Selector Genetic Algorithm.**
 
 - R. Tolosana, J.C. Ruiz-Garcia, R. Vera-Rodriguez, J. Herreros-Rodriguez, S. Romero-Tapiador, A. Morales and J. Fierrez, **"Child-Computer Interaction: Recent Works, New Dataset, and Age Detection"**, *IEEE Transactions on Emerging Topics in Computing*, doi: [10.1109/TETC.2022.3150836](https://www.doi.org/10.1109/TETC.2022.3150836), 2022.
 
@@ -70,9 +70,9 @@ From the original dataset, with *N* features and *M* samples, **an initial popul
 **These 4 steps will be repeated until one of the following situations occurs**:
 
 - The defined number of generations ([`n_gen`](#n_gen_par)) is reached.
-- The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. 
+- The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
 
-The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
+
 
 <br/>
 
