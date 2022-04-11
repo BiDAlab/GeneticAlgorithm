@@ -52,7 +52,7 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 <br/>
 
-![Feature-Selector Genetic Algorithm](./media/image.jpg)
+![Feature-Selector Genetic Algorithm](./media/algorithm.jpg)
 
 <br/>
 
@@ -100,9 +100,15 @@ Initially, **the best solution from the previous population is always added** to
 
 ### <a name="crossover">Crossover</a>
 
-The crossover operation **takes cares of generating new solutions by mixing the chromosomes (solutions) of the new population**. Each chromosome is a binary array of 0 and 1. The crossover operator selects a **random cut position** and performs the combination between two chromosomes.
+The crossover operation **takes cares of generating new solutions by mixing the chromosomes (solutions) of the new population**. Each chromosome is a binary array of 0 and 1. The crossover operator **selects a random cut position and performs the combination between two chromosomes**.
 
-![Feature-Selector Genetic Algorithm](./media/image.jpg)
+<br/>
+
+<p align="center">
+  <img src="./media/crossover.jpg" width="700" height="531" />
+</p>
+
+<br/>
 
 To make the crossover process, mathematical hope is used. That is, if the probability of crossing is 0.5 and we have a population size of 300 (150 pairs), the mathematical hope tells us that approximately 75 crosses will be made. The crossing is done by cutting through a random position of all the genes.
 
