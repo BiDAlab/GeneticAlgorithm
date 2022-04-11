@@ -72,7 +72,9 @@ From the original dataset, with *N* samples and *M* features, **an initial popul
 **These 4 steps will be repeated until one of the following situations occurs**:
 
 - The defined number of generations ([`n_gen`](#n_gen_par)) is reached.
-- The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
+- The algorithm converges. That is, for a number of `threshold_times_convergence` generations the best result found in the population is always the same. This means that the algorithm has fallen into a local minimum/maximum. The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
+
+
 
 <br/>
 
