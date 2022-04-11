@@ -110,10 +110,10 @@ The crossover operation **takes cares of generating new solutions by mixing the 
 
 <br/>
 
-To make the crossover process, mathematical hope is used. That is, if the probability of crossing is 0.5 and we have a population size of 300 (150 pairs), the mathematical hope tells us that approximately 75 crosses will be made. The crossing is done by cutting through a random position of all the genes.
+The number of crossovers to be applied to the new population is calculated using the variable [`crossover_rate`](#crossover_rate_par) and mathematical hope.
 
 ```bash
-n_crosses = crossover_rate * (population_size / 2)
+n_crossovers = crossover_rate * (population_size / 2)
 ```
 
 ------
