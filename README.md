@@ -32,7 +32,7 @@ This repository contains the **Python implementation of a genetic algorithm deve
 
 ## <a name="install">Installation</a>
 
-Simply clone this repository and run `pip setup.py install`.
+Simply clone this repository and run `python setup.py install`.
 
 To uninstall run `pip uninstall genetic_selector`.
 
@@ -56,9 +56,9 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 <br/>
 
-From the original dataset, with *N* samples and *M* features, **an initial population of size** [`population_size`](#population_size_par) **chromosomes is created randomly**. A chromosome is a binary array of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`population_size`](#population_size_par) initial solutions.
+From the original dataset, with *N* samples and *M* features, **an initial population of size** [`population_size`](#population_size_par) **chromosomes is randomly created**. A chromosome is a binary array of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`population_size`](#population_size_par) initial solutions.
 
-**Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the generational process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
+**Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the generational process of natural selection begins.
 
 <br/>
 
@@ -72,7 +72,9 @@ From the original dataset, with *N* samples and *M* features, **an initial popul
 **These 4 steps will be repeated until one of the following situations occurs**:
 
 - The defined number of generations ([`n_gen`](#n_gen_par)) is reached.
-- The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
+- The algorithm converges. That is, for a number of `threshold_times_convergence` generations the best result found in the population is always the same. This means that the algorithm has fallen into a local minimum/maximum. The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
+
+
 
 <br/>
 
@@ -122,6 +124,14 @@ n_crossovers = crossover_rate * (population_size / 2)
 
 The mutation operation **takes cares of generating new solutions by altering some genes in the chromosomes (solutions) of the new population**. Each chromosome is a binary matrix of 0 and 1. The mutation operator **selects a random chromosome from the new population**. From that chromosome it **selects a random gene (feature) and alters its value by changing 0 to 1 and vice versa**.
 
+<br/>
+
+<p align="center">
+  <img src="./media/mutation.jpg" width="700" height="331" />
+</p>
+
+<br/>
+
 The number of mutations to be applied to the new population is calculated using the [`mutation_rate`](#mutation_rate_par), the [`population_size`](#population_size_par), the number of genes per chromosome *(N)* and mathematical hope.
 
 ```bash
@@ -166,7 +176,7 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 
 <br/>
 
-## <a name="example">Example of Use (To be updated)</a>
+## <a name="example">Example of Use</a>
 
 ```python
 import pandas as pd
