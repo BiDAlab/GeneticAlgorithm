@@ -58,7 +58,9 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 From the original dataset, with *N* features and *M* samples, **an initial population of size** [`n_population`](#n_population_par) **chromosomes is created randomly**. A chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`n_population`](#n_population_par) initial solutions.
 
-**Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the evolutionary process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
+**Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the generational process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
+
+<br/>
 
 **During the generational process there are 4 steps**: 
 
@@ -72,6 +74,14 @@ From the original dataset, with *N* features and *M* samples, **an initial popul
 - The defined number of generations ([`n_gen`](#n_gen_par)) is reached.
 - The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
 
+<br/>
+
+When the process terminates, the *support()* function call returns:
+
+1. The best chromosome (subset of features) obtained over all generations.
+2. The results for the validation set generation by generation.
+3. The results for the training set generation by generation. If the variable [`calc_train_score`](#calc_train_score_par) is `true`.
+4. A history of the best chromosome (subset of characteristics) obtained generation by generation.
 
 
 <br/>
@@ -138,7 +148,7 @@ This section defines the input parameters of the Feature-Selector Genetic Algori
 |<a name="crossover_rate_par">`crossover_rate`</a>|float|0.7|Defines the crossing probability. It must be a value between 0.0 and 1.0.
 |<a name="mutation_rate_par">`mutation_rate`</a>|float|1.0|Defines the mutation probability. It must be a value between 0.0 and 1.0. 
 |<a name="tournament_k_par">`tournament_k`</a>|int|2|Defines the size of the tournament carried out in the selection process. Number of chromosomes facing each other in each tournament.
-|<a name="return_train_score_par">`return_train_score`</a>|bool|False|Whether or not to save the scores obtained during the training process.<br/>The calculation of training scores is used to obtain information on how different parameter settings affect the overfitting/underfitting trade-off. However, calculating the scores in the training set can be computationally expensive and is not strictly necessary to select the parameters that produce the best generalisation performance.
+|<a name="calc_train_score_par">`calc_train_score`</a>|bool|False|Whether or not to calculate the scores obtained during the training process.<br/>The calculation of training scores is used to obtain information on how different parameter settings affect the overfitting/underfitting trade-off. However, calculating the scores in the training set can be computationally expensive and is not strictly necessary to select the parameters that produce the best generalisation performance.
 |<a name="initial_best_chromosome_par">`initial_best_chromosome`</a>|np.ndarray|None|A 1-dimensional binary matrix of size equal to the number of features (M). Defines the best chromosome (subset of features) in the initial population.
 |<a name="n_jobs_par">`n_jobs`</a>|int|1|Number of cores to run in parallel. By default a single-core is used.<br/>`n_jobs = -1` means the maximum number of cores on the machine. If the inserted `n_jobs` is greater than the maximum number of cores on the machine, then the value is set to the maximum number of cores on the machine. 
 |<a name="random_state_par">`random_state`</a>|int or RandomState instance|None|Controls the randomness of the life cycle in each population. Enter an integer for reproducible output.
