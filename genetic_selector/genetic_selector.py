@@ -21,7 +21,7 @@ Genetic algorithm used to select the best features from a dataset
 class GeneticSelector:
     """Feature selection with genetic algorithm.
     Parameters
-    ----------
+    --------------------
     estimator : object
         A supervised learning estimator with a `fit` method from
         Scikit-learn.
