@@ -56,9 +56,9 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 <br/>
 
-From the original dataset, with *N* features and *M* samples, **an initial population of size** `n_population` **chromosomes is created randomly**. Each chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. A chromosome represents a solution (a subset of selected features). Therefore, the initial population has `n_population` initial solutions.
+From the original dataset, with *N* features and *M* samples, **an initial population of size** [`n_population`](#n_population_par) **chromosomes is created randomly**. A chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`n_population`](#n_population_par) initial solutions.
 
-**Once the initial population is defined, it is [evaluated](#evaluation)** to find the best chromosome (solution) in the population. Once the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for `n_gen` generations or until the solution converges.
+**Once the initial population is defined, it is [evaluated](#evaluation)** to find the best chromosome (solution) in the population. Then, when the best solution is detected, the evolutionary process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
 
 **During the generational process there are 4 steps**: 
 
@@ -69,7 +69,7 @@ From the original dataset, with *N* features and *M* samples, **an initial popul
 
 **These 4 steps will be repeated until one of the following situations occurs**:
 
-- The defined number of generations (`n_gen`) is reached.
+- The defined number of generations ([`n_gen`](#n_gen_par)) is reached.
 - The algorithm converges. That is, during `threshold_times_convergence` times the best result found in the population does not improve on the best result found so far. 
 
 The `threshold_times_convergence` value initially takes value 5 and from generation 17 its value increases according to the number of generations taken. This allows for a deeper search as the number of generations increases.
@@ -110,6 +110,9 @@ In this process, the population of chromosomes (possible solutions) is evaluated
 
 - A supervised learning [`estimator`](#estimator_par) with a *fit* method from Scikit-learn. The estimator can be a classifier or a regressor.
 - A defined [`scoring`](#scoring_par) to quantitatively measure the quality of a solution (chromosome).
+- A defined cross-validation splitting strategy ([`cv`](#cv_par)).
+
+For each chromosome (subset of features) in the population, an estimator is trained using the training set defined by the [`cv`](#cv_par). Then, the model is evaluated with the validation set and the [`scoring`](#scoring_par) defined. If the [`cv`](#cv_par) defines a fixed validation set, it will be evaluated only, otherwise, an average will be performed.
 
 ------
 
