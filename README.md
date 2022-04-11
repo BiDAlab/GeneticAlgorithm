@@ -76,9 +76,15 @@ The `threshold_times_convergence` value initially takes value 5 and from generat
 
 <br/>
 
-### <a name="selection">Selection (To be updated)</a>
+### <a name="selection">Selection</a>
 
-To carry out the selection process, the entire population is evaluated using the model's average, the best chromosome is selected and the remaining chromosomes are selected per *tournament_k* size tournament.
+In the process, **a new population is created by selecting those chromosomes (solutions) from the previous population that are the strongest (with the best** [`scoring`](#scoring_par)**)**. The new population must have the same [`n_population`](#n_population_par) as the old one. For this purpose, a **tournament process** is carried out.
+
+Initially, **the best solution from the previous population is always added** to ensure this solution in the next population. Then, **an iterative process is repeated until the new population is complete**:
+
+1. From the previous population, [`tournament_k`](#tournament_k_par) chromosomes are randomly selected.
+2. The [`tournament_k`](#tournament_k_par) chromosomes selected face against each other.
+3. The chromosome with the best [`scoring`](#scoring_par) is selected and added to the new population.
 
 ------
 
