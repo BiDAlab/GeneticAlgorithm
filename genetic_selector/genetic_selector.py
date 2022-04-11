@@ -53,13 +53,14 @@ class GeneticSelector:
     tournament_k : int, default: 2
         Defines the size of the tournament carried out in the selection
         process. Number of chromosomes facing each other in each tournament.
-    return_train_score : bool, default=False
-        Whether or not to save the scores obtained during the training process.
-        The calculation of training scores is used to obtain information on how
-        different parameter settings affect the overfitting/underfitting
-        trade-off. However, calculating the scores in the training set can be
-        computationally expensive and is not strictly necessary to select the
-        parameters that produce the best generalisation performance.
+    calc_train_score : bool, default=False
+        Whether or not to calculate the scores obtained during the training
+        process. The calculation of training scores is used to obtain
+        information on how different parameter settings affect the
+        overfitting/underfitting trade-off. However, calculating the scores in
+        the training set can be computationally expensive and is not strictly
+        necessary to select the parameters that produce the best generalisation
+        performance.
     initial_best_chromosome: np.ndarray, default=None
         A 1-dimensional binary matrix of size equal to the number of features
         (M). Defines the best chromosome (subset of features) in the initial
@@ -81,14 +82,14 @@ class GeneticSelector:
     def __init__(self, estimator: object, scoring: str = None, cv: int = 5,
                  n_gen: int = 50, n_population: int = 100, crossover_rate:
                  float = 0.7, mutation_rate: float = 0.1,
-                 tournament_k: int = 2, return_train_score: bool = False,
+                 tournament_k: int = 2, calc_train_score: bool = False,
                  initial_best_chromosome: np.ndarray = None, n_jobs: int = 1,
                  random_state: int = None, verbose: int = 0):
 
         # Sklearn estimator (classifier or regressor)
         self.estimator = estimator
         # Save train score
-        self.return_train_score = return_train_score
+        self.calc_train_score = calc_train_score
         # Initial chromosome
         self.initial_best_chromosome = initial_best_chromosome
         # Scoring metric
@@ -205,7 +206,7 @@ class GeneticSelector:
             best_chromosome_index, 0)
 
         # Save output results
-        if self.return_train_score:
+        if self.calc_train_score:
             self.__save_output_results(
                 val_score=population_scores[best_chromosome_index, 0],
                 best_current_chromosome=self.population[best_chromosome_index],
@@ -248,7 +249,7 @@ class GeneticSelector:
                 best_chromosome_index, i+1)
 
             # Save output results
-            if self.return_train_score:
+            if self.calc_train_score:
                 self.__save_output_results(
                     val_score=population_scores[best_chromosome_index, 0],
                     best_current_chromosome=self.population
@@ -304,7 +305,7 @@ class GeneticSelector:
                     An array with validation scores during each generation.
                 - train_scores : np.ndarray
                     An array with training scores during each generation. Could
-                    be `None` if self.return_train_score = False.
+                    be `None` if self.calc_train_score = False.
                 - chromosomes_history : np.ndarray
                     An array with multiple mask of selected features, each one
                     for the best chromosome found in each generation.
@@ -313,7 +314,7 @@ class GeneticSelector:
         return np.array([
             self.best_chromosome,
             self.val_scores,
-            self.train_scores if self.return_train_score else None,
+            self.train_scores if self.calc_train_score else None,
             self.chromosomes_history
         ])
 
@@ -329,9 +330,9 @@ class GeneticSelector:
         # Cross-validation execution
         scores = cross_validate(
             self.estimator, data, self.y, cv=self.cv, scoring=self.scorer,
-            verbose=self.verbose, return_train_score=self.return_train_score)
+            verbose=self.verbose, calc_train_score=self.calc_train_score)
 
-        if self.return_train_score:
+        if self.calc_train_score:
             return (scores['val_score'].mean(),
                     scores['train_score'].mean())
         else:
