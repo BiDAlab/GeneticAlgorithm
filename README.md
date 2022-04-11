@@ -122,6 +122,14 @@ n_crossovers = crossover_rate * (population_size / 2)
 
 The mutation operation **takes cares of generating new solutions by altering some genes in the chromosomes (solutions) of the new population**. Each chromosome is a binary matrix of 0 and 1. The mutation operator **selects a random chromosome from the new population**. From that chromosome it **selects a random gene (feature) and alters its value by changing 0 to 1 and vice versa**.
 
+<br/>
+
+<p align="center">
+  <img src="./media/mutation.jpg" width="700" height="331" />
+</p>
+
+<br/>
+
 The number of mutations to be applied to the new population is calculated using the [`mutation_rate`](#mutation_rate_par), the [`population_size`](#population_size_par), the number of genes per chromosome *(N)* and mathematical hope.
 
 ```bash
