@@ -56,7 +56,7 @@ The genetic algorithm is a **metaheuristic algorithm based on Charles Darwin's t
 
 <br/>
 
-From the original dataset, with *N* features and *M* samples, **an initial population of size** [`n_population`](#n_population_par) **chromosomes is created randomly**. A chromosome is a binary vector of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`n_population`](#n_population_par) initial solutions.
+From the original dataset, with *N* features and *M* samples, **an initial population of size** [`n_population`](#n_population_par) **chromosomes is created randomly**. A chromosome is a binary array of size N (number of features), where 1 represents that the feature at that position is selected and 0 that it is not. Each chromosome represents a solution (a subset of selected features). Therefore, the initial population has [`n_population`](#n_population_par) initial solutions.
 
 **Once the initial population is defined, it is [evaluated](#evaluation)** to obtain the quality of each chromosome (solution) in the population and to find the best one. Then, the generational process of natural selection begins. This process will be repeated for [`n_gen`](#n_gen_par) generations or until the solution converges.
 
@@ -98,9 +98,13 @@ Initially, **the best solution from the previous population is always added** to
 
 ------
 
-### <a name="crossover">Crossover (To be updated)</a>
+### <a name="crossover">Crossover</a>
 
-To make the crossing, mathematical hope is used. That is, if the probability of crossing is 0.5 and we have a population size of 300 (150 pairs), the mathematical hope tells us that approximately 75 crosses will be made. The crossing is done by cutting through a random position of all the genes.
+The crossover operation **takes cares of generating new solutions by mixing the chromosomes (solutions) of the new population**. Each chromosome is a binary array of 0 and 1. The crossover operator selects a **random cut position** and performs the combination between two chromosomes.
+
+![Feature-Selector Genetic Algorithm](./media/image.jpg)
+
+To make the crossover process, mathematical hope is used. That is, if the probability of crossing is 0.5 and we have a population size of 300 (150 pairs), the mathematical hope tells us that approximately 75 crosses will be made. The crossing is done by cutting through a random position of all the genes.
 
 ```bash
 n_crosses = crossover_rate * (population_size / 2)
