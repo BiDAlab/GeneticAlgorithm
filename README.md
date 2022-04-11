@@ -225,7 +225,7 @@ if __name__ == '__main__':
     best_chromosome = support[0][0]
     score = support[0][1]
     best_epoch = support[0][2]
-    print(f'Best chromosome: {best_chromosome} -> (Features IDs: {np.where(best_chromosome)[0]})')
+    print(f'Best chromosome: {best_chromosome} -> (Selected Features IDs: {np.where(best_chromosome)[0]})')
     print(f'Best score: {score}')
     print(f'Best epoch: {best_epoch}')
 
@@ -301,7 +301,7 @@ C:\Users\User\example>python example_of_use.py
 # Elapsed time: 96.84 seconds
 
 
-Best chromosome: [1 1 0 1 1 0 1 1 1 0 1 0 0] -> (Features IDs: [ 0  1  3  4  6  7  8 10])
+Best chromosome: [1 1 0 1 1 0 1 1 1 0 1 0 0] -> (Selected Features IDs: [ 0  1  3  4  6  7  8 10])
 Best score: 0.9928571428571429
 Best epoch: 26
 Test scores: [0.9502463054187192, 0.9788177339901478, 0.9716748768472907, 0.9785714285714286, 0.9788177339901478, 
