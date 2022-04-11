@@ -98,9 +98,9 @@ Initially, **the best solution from the previous population is always added** to
 
 ------
 
-### <a name="crossover">Crossover (To be updated)</a>
+### <a name="crossover">Crossover</a>
 
-To make the crossing, mathematical hope is used. That is, if the probability of crossing is 0.5 and we have a population size of 300 (150 pairs), the mathematical hope tells us that approximately 75 crosses will be made. The crossing is done by cutting through a random position of all the genes.
+To make the crossover process, mathematical hope is used. That is, if the probability of crossing is 0.5 and we have a population size of 300 (150 pairs), the mathematical hope tells us that approximately 75 crosses will be made. The crossing is done by cutting through a random position of all the genes.
 
 ```bash
 n_crosses = crossover_rate * (population_size / 2)
