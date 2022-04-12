@@ -136,10 +136,10 @@ The mutation operation **takes cares of generating new solutions by altering som
 
 <br/>
 
-The number of mutations to be applied to the new population is calculated using the [`mutation_rate`](#mutation_rate_par), the [`population_size`](#population_size_par), the number of genes per chromosome *(N)* and mathematical hope.
+The number of mutations to be applied to the new population is calculated using the [`mutation_rate`](#mutation_rate_par), the [`population_size`](#population_size_par), the number of genes per chromosome *(M)* and mathematical hope.
 
 ```bash
-n_mutations = mutation_rate * population_size * genes_per_chromosome
+n_mutations = mutation_rate * population_size * M
 ```
 
 ------
