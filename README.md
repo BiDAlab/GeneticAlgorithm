@@ -77,7 +77,7 @@ From the original dataset, with *N* samples and *M* features, **an initial popul
 <br/>
 
 <p align="center">
-  <img src="./media/local_global.jpg" width="600" height="531" />
+  <img src="./media/local-global.jpg" width="600" height="531" />
 </p>
 
 <br/>
